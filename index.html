@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Todo List</title>
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss/browser@4"></script>
+    
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1 class="text-3xl font-bold">My Todo List</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <!-- Todo Input Section -->
+        <section class="todo-app">
+            <input type="text" id="todo-input" placeholder="Add a new task...">
+            <input type="date" id="todo-date" placeholder="Select due date...">
+            <button id="add-btn">Add</button>
+            <ul id="todo-list"></ul>
+        </section>
+
+        <!-- Action Buttons Section -->
+        <section>
+            <button id="filter-btn">Filter</button>
+            <button id="delete-all-btn">Delete All Tasks</button>
+        </section>
+
+        <!-- Task List Section -->
+        <section>
+            <h2>List of Tasks</h2>
+            <ul id="task-list">
+                <!-- Tasks will be dynamically added here -->
+                <li>No tasks added yet</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 Yama Todo List App</p>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        const todoInput = document.getElementById('todo-input');
+        const todoDate = document.getElementById('todo-date');
+        const addBtn = document.getElementById('add-btn');
+        const taskList = document.getElementById('task-list');
+        const deleteAllBtn = document.getElementById('delete-all-btn');
+
+        addBtn.addEventListener('click', () => {
+            const taskText = todoInput.value.trim();
+            const dateValue = todoDate.value;
+
+            if (taskText === "") return;
+
+            const li = document.createElement('li');
+            li.textContent = dateValue ? `${taskText} - ${dateValue}` : taskText;
+
+            // Hapus placeholder jika ada
+            if (taskList.children[0] && taskList.children[0].textContent === "No tasks added yet") {
+                taskList.innerHTML = "";
+            }
+
+            taskList.appendChild(li);
+
+            todoInput.value = "";
+            todoDate.value = "";
+        });
+
+        deleteAllBtn.addEventListener('click', () => {
+            taskList.innerHTML = "<li>No tasks added yet</li>";
+        });
+    </script>
+
+</body>
+</html>
